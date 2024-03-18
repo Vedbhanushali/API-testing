@@ -25,15 +25,15 @@ setup('Signing up the user', async ({ page, request }) => {
     await page.context().storageState({ path: authFile })
     //storage state no meanging (as not setting any cookie,session)
 
-    // // saving auth token in env variable by login
-    // const loginRes = await request.post(`${process.env.API_ENDPOINT}/person/login`, {
-    //     data: {
-    //         email: process.env.email,
-    //         password: process.env.password,
-    //     }
-    // });
-    // const responseBody = await loginRes.json();
-    // expect(loginRes.ok()).toBeTruthy();
-    // console.log("login token", responseBody.token)
-    // process.env.TOKEN = responseBody.token
+    // saving auth token in env variable by login
+    const loginRes = await request.post(`${process.env.API_ENDPOINT}/person/login`, {
+        data: {
+            email: process.env.email,
+            password: process.env.password,
+        }
+    });
+    const responseBody = await loginRes.json();
+    expect(loginRes.ok()).toBeTruthy();
+    console.log("login token", responseBody.token)
+    process.env.TOKEN = responseBody.token
 });

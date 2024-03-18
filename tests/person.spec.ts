@@ -4,6 +4,7 @@ dotenv.config();
 
 // Request context is reused by all tests in the file.
 let apiContext;
+
 test('Login', async ({ request, playwright }) => {
   // login saving auth token in api context
   const loginRes = await request.post(`${process.env.API_ENDPOINT}/person/login`, {
@@ -19,22 +20,12 @@ test('Login', async ({ request, playwright }) => {
 test.describe("Person API testing", () => {
   //all testcases require JWT token in requests
   //JWT token in added in apiContext
-  test.beforeAll('Login and set apiContext', async ({ request, playwright }) => {
-    // login saving auth token in api context
-    const loginRes = await request.post(`${process.env.API_ENDPOINT}/person/login`, {
-      data: {
-        email: process.env.email,
-        password: process.env.password,
-      }
-    });
-    const responseBody = await loginRes.json();
-    expect(loginRes.ok()).toBeTruthy();
-    console.log("login token", responseBody.token)
+  test.beforeAll('Setup ApiContext', async ({ request, playwright }) => {
     apiContext = await playwright.request.newContext({
       // All requests we send go to this API endpoint.
       baseURL: `${process.env.API_ENDPOINT}`,
       extraHTTPHeaders: {
-        'Authorization': `Bearer ${responseBody.token}`,
+        'Authorization': `Bearer ${process.env.TOKEN}`,
       },
     });
   });
