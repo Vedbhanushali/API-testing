@@ -19,7 +19,9 @@ setup('Signing up the user', async ({ page, request }) => {
             salary: 60000
         }
     });
-    console.log(signupResponse)
+    const signupBody = await signupResponse.json()
+    console.log(signupBody)
+    process.env.personId = signupBody?.response?._id || ''
     // expect(signupResponse.ok()).toBeTruthy();
     //if already exist user do nothing
     await page.context().storageState({ path: authFile })

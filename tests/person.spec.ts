@@ -43,10 +43,12 @@ test.describe("Person API testing", () => {
   });
 
   test('Filtered list all people', async ({ request }) => {
-    const type = 'chef' // type - ['chef','waiter','manager']
-    const profileRes = await apiContext.get(`/person/${type}`)
-    console.log("Filtered List of people --> ", await profileRes.json())
-    expect(profileRes.ok()).toBeTruthy();
+    const type = ['chef', 'waiter', 'manager']
+    for (const t of type) {
+      const profileRes = await apiContext.get(`/person/${t}`)
+      console.log(`Filtered ${t} List of people --> `, await profileRes.json())
+      expect(profileRes.ok()).toBeTruthy();
+    }
   });
 
   test('Edit personal details', async ({ request }) => {
