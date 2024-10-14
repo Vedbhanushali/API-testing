@@ -1,5 +1,7 @@
 # Playwright project
 
+https://github.com/user-attachments/assets/41ac65f4-8514-4e92-a556-eaa4c36af84d
+
 Testing [backend project API's](https://github.com/Vedbhanushali/hotel-backend-nodejs)
 
 ## Testing for below backend
